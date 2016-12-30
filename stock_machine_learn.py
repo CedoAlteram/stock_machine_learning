@@ -22,10 +22,10 @@ def graphRawFX():
 
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
     #not sure why this is not working here.
-    #for label in ax1.xaxis.get_ticketlabels():
-    #    label.set_rotation(45)
+    for label in ax1.xaxis.get_ticklabels():
+        label.set_rotation(45)
     plt.subplots_adjust(bottom=.23)
-    #plt.gca().get_yaxis().get_major_formatter().set_userOffset(False)
+    plt.gca().get_yaxis().get_major_formatter().set_useOffset(False)
     plt.grid(True)
     plt.show()
 
