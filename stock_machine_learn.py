@@ -21,7 +21,7 @@ def graphRawFX():
     ax1.plot(date,ask)
 
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
-
+    #not sure why this is not working here.
     #for label in ax1.xaxis.get_ticketlabels():
     #    label.set_rotation(45)
     plt.subplots_adjust(bottom=.23)
