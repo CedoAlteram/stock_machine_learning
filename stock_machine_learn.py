@@ -187,6 +187,8 @@ def currentPattern():
 
 def patternRecognition():
 
+
+    predictedOutcomesAr = []
     patFound = 0
     plotPatAr = []
 
@@ -229,7 +231,7 @@ def patternRecognition():
                   sim11 + sim12 + sim13 + sim14 + sim15 + sim16 + sim17 + sim18 + sim19 + sim20 +
                   sim21 + sim22 + sim23 + sim24 + sim25 + sim26 + sim27 + sim28 + sim29 + sim30)/30.00
 
-        if howSim > 75:
+        if howSim > 70:
             patdex = patternAr.index(eachPattern)
 
             patFound = 1
@@ -259,9 +261,25 @@ def patternRecognition():
         fig = plt.figure(figsize=(10,6))
 
         for eachPatt in plotPatAr:
+            futurePoints = patternAr.index(eachPatt)
+            if performanceAr[futurePoints] > patForRec[29]:
+                pcolor = '#24bc00'
+            else:
+                pcolor = '#d40000'
+
+
+
             plt.plot(xp, eachPatt)
+            predictedOutcomesAr.append(performanceAr[futurePoints])
 
+            plt.scatter(35, performanceAr[futurePoints],c=pcolor,alpha=.3)
 
+        realOutcomerange = allData[toWhat+20:toWhat+30]
+        realAvgOutcome = reduce(lambda x, y: x+y, realOutcomerange) / len(realOutcomerange)
+        realMovement = percentchange(allData[toWhat], realAvgOutcome)
+        predictedAvgOutcome = reduce(lambda x, y: x + y, predictedOutcomesAr) / len(predictedOutcomesAr)
+        plt.scatter(40,realMovement, c='#54fff7', s=25)
+        plt.scatter(40,predictedAvgOutcome, c='b', s=25)
         plt.plot(xp,patForRec, '#54fff7', linewidth = 3)
         plt.grid(True)
         plt.title('Pattern Recognition')
@@ -292,10 +310,11 @@ dataLength = int(bid.shape[0])
 print 'data length is', dataLength
 
 toWhat = 37000
+allData = ((bid+ask)/2)
 while toWhat < dataLength:
 
-    avgLine = ((bid+ask)/2)
-    avgLine = avgLine[:toWhat]
+    #avgLine = ((bid+ask)/2)
+    avgLine = allData[:toWhat]
     patternAr = []
     performanceAr = []
     patForRec = []
